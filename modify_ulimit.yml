@@ -2,7 +2,7 @@
 #Modify Ulimits
 
 - hosts: all
-  user: cyote
+  user: <username>
   become: yes
   become_user: root
   become_method: sudo
@@ -14,8 +14,8 @@
         regexp: '^DefaultLimitNOFILE='
         line: 'DefaultLimitNOFILE=65536'
         backup: yes
-        owner: cyote
-        group: cyote   
+        owner: <username>
+        group: <username>   
         backrefs: yes
     - lineinfile:
         path: /etc/systemd/user.conf
@@ -23,8 +23,8 @@
         regexp: '^#DefaultLimitNPROC='
         line: 'DefaultLimitNPROC=65536'
         backup: yes
-        owner: cyote
-        group: cyote
+        owner: <username>
+        group: <username>
         backrefs: yes
     - lineinfile:
         path: /etc/systemd/user.conf
@@ -32,8 +32,8 @@
         regexp: '^#DefaultLimitMEMLOCK='
         line: 'DefaultLimitMEMLOCK=unlimited'
         backup: yes
-        owner: cyote
-        group: cyote
+        owner: <username>
+        group: <username>
         backrefs: yes
     - lineinfile:
         path: /etc/sysctl.conf
@@ -69,9 +69,9 @@
         group: root     
         backrefs: yes
 
-    - name: configure system settings, file descriptors and number of threads to CYOTE    
+    - name: configure system settings, file descriptors and number of threads to <USERNAME>    
       pam_limits:  
-       domain: cyote
+       domain: <username>
        limit_type: "{{item.limit_type}}"
        limit_item: "{{item.limit_item}}"
        value: "{{item.value}}"
