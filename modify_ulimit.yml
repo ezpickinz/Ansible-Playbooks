@@ -1,0 +1,105 @@
+#Ansible Playbook
+#Modify Ulimits
+
+- hosts: all
+  user: cyote
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+
+    - lineinfile:
+        path: /etc/systemd/user.conf
+        regexp: '^DefaultLimitNOFILE='
+        line: 'DefaultLimitNOFILE=65536'
+        backup: yes
+        owner: cyote
+        group: cyote   
+        backrefs: yes
+    - lineinfile:
+        path: /etc/systemd/user.conf
+        state: present
+        regexp: '^#DefaultLimitNPROC='
+        line: 'DefaultLimitNPROC=65536'
+        backup: yes
+        owner: cyote
+        group: cyote
+        backrefs: yes
+    - lineinfile:
+        path: /etc/systemd/user.conf
+        state: present
+        regexp: '^#DefaultLimitMEMLOCK='
+        line: 'DefaultLimitMEMLOCK=unlimited'
+        backup: yes
+        owner: cyote
+        group: cyote
+        backrefs: yes
+    - lineinfile:
+        path: /etc/sysctl.conf
+        state: present        
+        regexp: '^fs.file-max='
+        line: 'fs.file-max = 65536'
+        backup: yes
+        owner: root
+        group: root
+        backrefs: yes
+    - lineinfile:
+        path: /etc/systemd/system.conf        
+        regexp: '^DefaultLimitNOFILE='
+        line: 'DefaultLimitNOFILE=65536'
+        backup: yes
+        owner: root
+        group: root
+        backrefs: yes
+    - lineinfile:
+        path: /etc/systemd/system.conf
+        regexp: '^#DefaultLimitNPROC='
+        line: 'DefaultLimitNPROC=65536'
+        backup: yes
+        owner: root
+        group: root
+        backrefs: yes
+    - lineinfile:
+        path: /etc/systemd/system.conf
+        regexp: '^#DefaultLimitMEMLOCK='
+        line: 'DefaultLimitMEMLOCK=unlimited'
+        backup: yes
+        owner: root
+        group: root     
+        backrefs: yes
+
+    - name: configure system settings, file descriptors and number of threads to CYOTE    
+      pam_limits:  
+       domain: cyote
+       limit_type: "{{item.limit_type}}"
+       limit_item: "{{item.limit_item}}"
+       value: "{{item.value}}"
+      with_items:
+         - { limit_type: 'soft', limit_item: 'nofile', value: 65536 }
+         - { limit_type: 'hard', limit_item: 'nofile', value: 65536 }
+         - { limit_type: 'soft', limit_item: 'nproc', value: 65536 }
+         - { limit_type: 'hard', limit_item: 'nproc', value: 65536 }
+         - { limit_type: 'soft', limit_item: 'memlock', value: unlimited }
+         - { limit_type: 'hard', limit_item: 'memlock', value: unlimited }
+
+    - name: configure system settings, file descriptiors and number of threads to ROOT        
+      pam_limits:
+       domain: root
+       limit_type: "{{item.limit_type}}"
+       limit_item: "{{item.limit_item}}"
+       value: "{{item.value}}"
+      with_items:
+        - { limit_type: 'soft', limit_item: 'nofile', value: 65536 }
+        - { limit_type: 'hard', limit_item: 'nofile', value: 65536 }
+        - { limit_type: 'soft', limit_item: 'nproc', value: 65536 }
+        - { limit_type: 'hard', limit_item: 'nproc', value: 65536 }
+        - { limit_type: 'soft', limit_item: 'memlock', value: unlimited }
+        - { limit_type: 'hard', limit_item: 'memlock', value: unlimited }
+  
+    - name: reload settings from all system configuration files
+#      shell: systemctl daemon-reload
+      shell: shutdown -r +5
+
+
+
