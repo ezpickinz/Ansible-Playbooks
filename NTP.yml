@@ -1,0 +1,92 @@
+#Ansible Playbook
+#NTP
+
+- hosts: all
+  user: cyote
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+
+    - name: set timezone
+      timezone:
+       hwclock: local
+       name: America/Boise
+
+    - name: Install NTP
+      apt: 
+       name: ntp
+       state: installed
+      tags: ntp  
+
+    - name: Install NTPdate
+      apt:
+       name: ntpdate
+       state: installed
+      tags: ntp
+
+    - lineinfile:
+       path: /etc/ntp.conf
+       regexp: '^pool 0.ubuntu.pool.ntp.org iburst'
+       line: '#pool 0.ubuntu.pool.ntp.org iburst'
+       backup: yes
+       owner: root
+       group: root
+       backrefs: yes
+
+    - lineinfile:
+       path: /etc/ntp.conf
+       regexp: '^pool 1.ubuntu.pool.ntp.org iburst'
+       line: '#pool 1.ubuntu.pool.ntp.org iburst'
+       backup: yes
+       owner: root
+       group: root
+       backrefs: yes
+
+    - lineinfile:
+       path: /etc/ntp.conf
+       regexp: '^pool 2.ubuntu.pool.ntp.org iburst'
+       line: '#pool 2.ubuntu.pool.ntp.org iburst'
+       backup: yes
+       owner: root
+       group: root
+       backrefs: yes
+
+    - lineinfile:
+       path: /etc/ntp.conf
+       regexp: '^pool 3.ubuntu.pool.ntp.org iburst'
+       line: '#pool 3.ubuntu.pool.ntp.org iburst'
+       backup: yes
+       owner: root
+       group: root
+       backrefs: yes
+
+    - lineinfile:
+       path: /etc/ntp.conf
+       insertafter: '^#pool 3.ubuntu.pool.ntp.org iburst'
+       line: 'server 192.168.2.2 iburst'
+       backup: yes
+       owner: root
+       group: root
+
+    - name: make sure NTP is stopped
+      service: 
+       name: ntp 
+       state: stopped
+       enabled: yes
+      tags: ntp  
+
+    - name: Sync time initialy
+      shell: ntpdate 192.168.2.2
+      tags: ntp
+
+    - name: Make sure NTP is started
+      service: 
+       name: ntp 
+       state: running 
+       enabled: yes
+      tags: ntp
+
+    - name: reload daemon
+      shell: systemctl daemon-reload

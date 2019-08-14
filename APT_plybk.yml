@@ -1,0 +1,41 @@
+#Ansible Playbook
+#APT Installation
+
+- hosts: all
+  user: cyote
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+
+    - name: add repo
+      apt_repository: repo='deb [arch=amd64] ftp://repo.cyote.inl.gov/ubuntu bionic main restricted universe multiverse'
+      apt_repository: repo='deb [arch=amd64] ftp://repo.cyote.inl.gov/ubuntu bionic-security main restricted universe multiverse'
+      apt_repository: repo='deb [arch=amd64] ftp://repo.cyote.inl.gov/ubuntu bionic-updates main restricted universe multiverse'
+
+    - name: install packages
+      apt:
+        name: "{{ item }}"
+        state: present
+#add new apt to the list below for it to be installed
+      with_items:
+        - 'locales'
+        - 'build-essential'
+        - 'acl'
+        - 'htop'
+        - 'git'
+        - 'supervisor'
+        - 'python-pip'
+        - 'python3-pip'
+        - 'nginx'
+
+    - name: run apt-get update and upgrade
+      apt: 
+       state: latest
+       upgrade: yes
+       update_cache: yes
+       cache_valid_time: 86400
+
+    - name: reload daemon
+      shell: systemctl daemon-reload 
