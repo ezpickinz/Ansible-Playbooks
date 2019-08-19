@@ -1,6 +1,8 @@
 #Ansible Playbook
 #Modify Ulimits
 
+#command to execute: ansible-playbook -v -i /etc/ansible/hosts modify_ulimit.yml --ask-become-pass
+
 - hosts: all
   user: <username>
   become: yes
@@ -11,7 +13,7 @@
 
     - lineinfile:
         path: /etc/systemd/user.conf
-        regexp: '^DefaultLimitNOFILE='
+        regexp: '^#DefaultLimitNOFILE='
         line: 'DefaultLimitNOFILE=65536'
         backup: yes
         owner: <username>
@@ -46,7 +48,7 @@
         backrefs: yes
     - lineinfile:
         path: /etc/systemd/system.conf        
-        regexp: '^DefaultLimitNOFILE='
+        regexp: '^#DefaultLimitNOFILE='
         line: 'DefaultLimitNOFILE=65536'
         backup: yes
         owner: root
