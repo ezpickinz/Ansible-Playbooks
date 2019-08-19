@@ -7,7 +7,7 @@
     - hosts: gravwell_indexers
       user: <username>
       become: yes
-      become_method: udo
+      become_method: sudo
       become_user: root
       gather_facts: yes
       tasks:
@@ -26,12 +26,12 @@
     - hosts: gravwell_searchhead
       user: <username>
       become: yes
-      become_method: udo
+      become_method: sudo
       become_user: root
       gather_facts: yes
       tasks:
       
-         -  name: Update and Upgrade Indexers
+         -  name: Update and Upgrade Searchhead
             apt: 
               state: latest
               upgrade: yes
