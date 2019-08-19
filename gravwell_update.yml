@@ -1,0 +1,43 @@
+#Ansible Playbook
+#Gravwell Update
+
+#command to execute: ansible-playbook -vvv -i /etc/ansible/hosts -e ansible_python_interpreter=/usr/bin/python3 gravwell_update.yml --ask-become-pass
+
+#Gravwell Indexers
+    - hosts: gravwell_indexers
+      user: <username>
+      become: yes
+      become_method: udo
+      become_user: root
+      gather_facts: yes
+      tasks:
+    
+         -  name: Update and Upgrade Indexers
+            apt: 
+              state: latest
+              upgrade: yes
+              update_cache: yes
+              cache_valid_time: 86400
+
+         -  name: Reload Daemon
+             shell: systemctl daemon-reload
+   
+#Gravwell Searchhead
+    - hosts: gravwell_searchhead
+      user: <username>
+      become: yes
+      become_method: udo
+      become_user: root
+      gather_facts: yes
+      tasks:
+      
+         -  name: Update and Upgrade Indexers
+            apt: 
+              state: latest
+              upgrade: yes
+              update_cache: yes
+              cache_valid_time: 86400
+
+         -  name: Reload Daemon
+             shell: systemctl daemon-reload
+          
