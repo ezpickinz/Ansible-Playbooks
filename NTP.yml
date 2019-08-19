@@ -1,8 +1,10 @@
 #Ansible Playbook
 #NTP
 
+#command to execute: ansible-playbook -v -i /etc/ansible/hosts NTP.yml --ask-become-pass
+
 - hosts: all
-  user: cyote
+  user: <username>
   become: yes
   become_user: root
   become_method: sudo
@@ -12,7 +14,7 @@
     - name: set timezone
       timezone:
        hwclock: local
-       name: America/Boise
+       name: <timezone> #example America/Boise
 
     - name: Install NTP
       apt: 
@@ -78,7 +80,7 @@
       tags: ntp  
 
     - name: Sync time initialy
-      shell: ntpdate 192.168.2.2
+      shell: ntpdate <IP address of NTP Server>
       tags: ntp
 
     - name: Make sure NTP is started
