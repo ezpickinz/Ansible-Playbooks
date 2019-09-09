@@ -4,7 +4,7 @@
 #command to execute: ansible-playbook -v -i /etc/ansible/hosts /etc/ansible/playbooks/pw_policy.yml --ask-become-pass
 
 - hosts: workstations
-  user: cyote
+  user: <username>
   become: yes
   become_method: sudo
   become_user: root
@@ -17,7 +17,7 @@
           state: present
 
       - name: Creating password policy in /etc/pam.d/common-password
-        remote_user: cyote
+        remote_user: <username>
         become: yes
         become_method: sudo
         pamd:
@@ -31,7 +31,7 @@
           state: before
 
       - name: Implementing Password policy in /etc/pam.d/common-password
-        remote_user: cyote
+        remote_user: <username>
         become: yes
         become_method: sudo
         pamd:
