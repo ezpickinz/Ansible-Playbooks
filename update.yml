@@ -1,0 +1,25 @@
+#Ansible Playbook
+#
+
+#command to execute: ansible-playbook -v -i /etc/ansible/hosts update.yml --ask-become-pass
+
+    - hosts: workstations
+      user: cyote
+      become: yes
+      become_user: root
+      become_method: sudo
+      gather_facts: yes
+      tasks:
+        
+        - name: run apt-get update and upgrade
+          apt:
+           state: latest
+           upgrade: yes
+           update_cache: yes
+           cache_valid_time: 86400
+        
+        - name: reload daemon
+          shell: systemctl daemon-reload
+        
+        - name: broadcast update message
+          shell: echo "Your system is up to date with APT packages."
