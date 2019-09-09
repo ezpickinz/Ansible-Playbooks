@@ -23,7 +23,7 @@
 #        - name: Adding user "Ansible Test" to example group         
 #          user:
 #            name: ansibletst
-#            password: '$6$58wtQJB3a$N8AG9hCnaxlJYSL1draFV18ybepFOync83uGAR64YdKHZY31l0Eg6ze1mCVUPJvafqRinaAViltfYRU/5ph5g1'
+#            password: '<hashed password>'
 #            comment: "Ansibletst"
 #            uid: 2001
 #            groups:
