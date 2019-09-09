@@ -41,7 +41,7 @@
 #            update_password: on_create
           
 #        ALL USERNAME are first four of the lastname, first intial, middle intial
-#        - name: Adding user "<NAME>" to CYOTE group
+#        - name: Adding user "<NAME>" to example group
 #          user: 
 #            name: <lastname,firstintial,middleintial>
 #            comment: "<username>"
