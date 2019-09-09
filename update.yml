@@ -4,7 +4,7 @@
 #command to execute: ansible-playbook -v -i /etc/ansible/hosts update.yml --ask-become-pass
 
     - hosts: workstations
-      user: cyote
+      user: <suername>
       become: yes
       become_user: root
       become_method: sudo
