@@ -4,19 +4,19 @@
 #command to execute: ansible playbook -v -i /etc/ansible/hosts user_create.yml --ask-become-pass
 
     - hosts: workstations
-      user: cyote
+      user: <username>
       become: yes
       become_method: sudo
       become_user: root
       gather_facts: yes
       tasks:
 
-        - name: Creating "CYOTE" group
-          remote_user: cyote
+        - name: Creating "<GROUPNAME>" group
+          remote_user: <username>
           become: yes
           become_method: sudo
           group:
-             name: CYOTE
+             name: <name of GROUP>
              gid: 2010
              state: present
 
@@ -28,7 +28,7 @@
 #            uid: 2001
 #            groups:
 #             - sudo
-#             - CYOTE
+#             - example
 #            state: present
 #            append: yes
 #            shell: /bin/bash
@@ -49,7 +49,7 @@
 #            group: CYOTE #use this if they are not a privileged user
 #            groups:
 #             - sudo
-#             - CYOTE
+#             - example
 #            append: yes
 #            state: present
 #            shell: /bin/bash
@@ -61,16 +61,16 @@
 #            home: /home/<username>
 #            update_password: on_create
 
-        - name: Add user "Andrew" to CYOTE group
+        - name: Add user "John" to <GROUPNAME> group
           user:
-            name: aguiat
+            name: johns
             password: '$6$58wtQJB3a$N8AG9hCnaxlJYSL1draFV18ybepFOync83uGAR64YdKHZY31l0Eg6ze1mCVUPJvafqRinaAViltfYRU/5ph5g1'
-            comment: "Andrew Aguire"
+            comment: "John Smith"
             uid: 2002
-#            group: CYOTE
+#            group: <GROUP name if only adding to one group>
             groups:
               - sudo
-              - CYOTE
+              - <GROUPNAME>
             state: present
             append: yes
             shell: /bin/bash
@@ -79,192 +79,44 @@
             ssh_key_file: .ssh/id_rsa
             system: no
             createhome: yes
-            home: /home/aguiat 
+            home: /home/johns 
             update_password: on_create
 
-        - name: Add user "Rishi" to CYOTE group
-          user:
-            name: chatrr
-            password: '$6$58wtQJB3a$N8AG9hCnaxlJYSL1draFV18ybepFOync83uGAR64YdKHZY31l0Eg6ze1mCVUPJvafqRinaAViltfYRU/5ph5g1'
-            comment: "Rishi Chatterjee"
-            uid: 2003
-#            group: CYOTE
-            groups:
-              - sudo
-              - CYOTE
-            state: present
-            append: yes
-            shell: /bin/bash
-            generate_ssh_key: yes
-            ssh_key_bits: 2048
-            ssh_key_file: .ssh/id_rsa
-            system: no
-            createhome: yes
-            home: /home/chatrr           
-            update_password: on_create
-
-        - name: Add user "Willis" to CYOTE group
-          user:
-            name: jordwm
-            password: '$6$58wtQJB3a$N8AG9hCnaxlJYSL1draFV18ybepFOync83uGAR64YdKHZY31l0Eg6ze1mCVUPJvafqRinaAViltfYRU/5ph5g1'
-            comment: "Willis Jordan"
-            uid: 2004
-#            group: CYOTE
-            groups:
-              - sudo
-              - CYOTE
-            state: present
-            append: yes
-            shell: /bin/bash
-            generate_ssh_key: yes
-            ssh_key_bits: 2048
-            ssh_key_file: .ssh/id_rsa
-            system: no
-            createhome: yes
-            home: /home/jordwm           
-            update_password: on_create
-
-        - name: Add user "Lawrence" to CYOTE group
-          user:
-            name: welllr
-            password: '$6$58wtQJB3a$N8AG9hCnaxlJYSL1draFV18ybepFOync83uGAR64YdKHZY31l0Eg6ze1mCVUPJvafqRinaAViltfYRU/5ph5g1'
-            comment: "Lawrence Wellman"
-            uid: 2005
-#            group: CYOTE
-            groups:
-              - sudo
-              - CYOTE
-            state: present
-            append: yes
-            shell: /bin/bash
-            generate_ssh_key: yes
-            ssh_key_bits: 2048
-            ssh_key_file: .ssh/id_rsa
-            system: no
-            createhome: yes
-            home: /home/welllr           
-            update_password: on_create
        
-        - name: Add user "Edward" to CYOTE group
-          user:
-            name: spriee
-            password: '$6$58wtQJB3a$N8AG9hCnaxlJYSL1draFV18ybepFOync83uGAR64YdKHZY31l0Eg6ze1mCVUPJvafqRinaAViltfYRU/5ph5g1'
-            comment: "Edward Springer"
-            uid: 2006
-#            group: CYOTE
-            groups:
-              - sudo
-              - CYOTE
-            state: present
-            append: yes
-            shell: /bin/bash
-            generate_ssh_key: yes
-            ssh_key_bits: 2048
-            ssh_key_file: .ssh/id_rsa
-            system: no
-            createhome: yes
-            home: /home/spriee        
-            update_password: on_create
-
 #        - name: Forcing password change for user
-#          remote_user: cyote
+#          remote_user: <username>
 #          become: yes
 #          become_method: sudo
 #          become_user: root
 #          command:
 #           chage -d 0 <username>
 
-        - name: Forcing password change for user "Andrew Aguire"
-          remote_user: cyote
+        - name: Forcing password change for user "John Smith"
+          remote_user: <username>
           become: yes
           become_method: sudo
           become_user: root
           command:
-           chage -d 0 aguiat
-
-        - name: Forcing password change for user "Rishi Chatterjee"
-          remote_user: cyote
-          become: yes
-          become_method: sudo
-          become_user: root
-          command:
-           chage -d 0 chatrr
-
-        - name: Forcing password change for user "Willis Jordan"
-          remote_user: cyote
-          become: yes
-          become_method: sudo
-          become_user: root
-          command:
-           chage -d 0 jordwm
-
-        - name: Forcing password change for user "Lawrence Wellman"
-          remote_user: cyote
-          become: yes
-          become_method: sudo
-          become_user: root
-          command:
-           chage -d 0 welllr
-
-        - name: Forcing password change for user "Edward Springer"
-          remote_user: cyote
-          become: yes
-          become_method: sudo
-          become_user: root
-          command:
-           chage -d 0 spriee
+           chage -d 0 johns  
 
 #        - name: Forcing user "EXAMPLE" to set password to expire every 3 months and can only change password once every week
-#          remote_user: cyote
+#          remote_user: <username>
 #          become: yes
 #          become_method: sudo
 #          become_user: root
 #          command:
 #           chage -M 90 -m 7 -I 30 -W 14 <username>
 
-        - name: Forcing user "Andrew Aguire" to set password to expire every 3 months and can only change password once every week
-          remote_user: cyote
+        - name: Forcing user "John Smith" to set password to expire every 3 months and can only change password once every week.
+          remote_user: <username>
           become: yes
           become_method: sudo
           become_user: root
           command:
-           chage -M 90 -m 7 -I 30 -W 14 aguiat
-
-        - name: Forcing user "Rishi Chatterjee" to set password to expire every 3 months and can only change password once every week
-          remote_user: cyote
-          become: yes
-          become_method: sudo
-          become_user: root
-          command:
-           chage -M 90 -m 7 -I 30 -W 14 chatrr
-
-        - name: Forcing user "Willis Jordan" to set password to expire every 3 months and can only change password once every week
-          remote_user: cyote
-          become: yes
-          become_method: sudo
-          become_user: root
-          command:
-           chage -M 90 -m 7 -I 30 -W 14 jordwm
-
-        - name: Forcing user "Lawrence Wellman" to set password to expire every 3 months and can only change password once every week
-          remote_user: cyote
-          become: yes
-          become_method: sudo
-          become_user: root
-          command:
-           chage -M 90 -m 7 -I 30 -W 14 welllr
-
-        - name: Forcing user "Edward Springer" to set password to expire every 3 months and can only change password once every week
-          remote_user: cyote
-          become: yes
-          become_method: sudo
-          become_user: root
-          command:
-           chage -M 90 -m 7 -I 30 -W 14 spriee
-
+          chge -M 90 -m 7 -I 30 -W 14 johns
 
 #        - name: remove user "ANSIBLE TEST"
-#          remote_user: cyote
+#          remote_user: <username>
 #          become: yes
 #          become_method: sudo
 #          become_user: root
@@ -274,20 +126,20 @@
 #           remove: yes
 #           force: yes
 
-#        - name: Removing user "Andrew Aguire"
-#          remote_user: cyote
+#        - name: Removing user "John Smith"
+#          remote_user: <username>
 #          become: yes
 #          become_method: sudo
 #          become_user: root
 #          user:
-#            name: aguiat
+#            name: johns
 #            state: absent
 #            remove: yes
 #            force: yes
 
 
 #    - hosts: workstations
-#      user: cyote
+#      user: <username>
 #      become: yes
 #      become_method: sudo
 #      become_user: root
