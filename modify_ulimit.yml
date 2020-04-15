@@ -1,10 +1,11 @@
+
 #Ansible Playbook
 #Modify Ulimits
 
-#command to execute: ansible-playbook -v -i /etc/ansible/hosts modify_ulimit.yml --ask-become-pass
+#command to exeute: ansible-playbook -v -i /etc/ansible/hosts/ modify_ulimit.yml --ask-become-pass
 
-- hosts: all
-  user: <username>
+- hosts: workstations
+  user: cyote
   become: yes
   become_user: root
   become_method: sudo
@@ -16,36 +17,48 @@
         regexp: '^#DefaultLimitNOFILE='
         line: 'DefaultLimitNOFILE=65536'
         backup: yes
-        owner: <username>
-        group: <username>   
+        owner: cyote
+        group: cyote   
         backrefs: yes
+
     - lineinfile:
         path: /etc/systemd/user.conf
         state: present
         regexp: '^#DefaultLimitNPROC='
         line: 'DefaultLimitNPROC=65536'
         backup: yes
-        owner: <username>
-        group: <username>
+        owner: cyote
+        group: cyote
         backrefs: yes
+
     - lineinfile:
         path: /etc/systemd/user.conf
-        state: present
         regexp: '^#DefaultLimitMEMLOCK='
         line: 'DefaultLimitMEMLOCK=unlimited'
         backup: yes
-        owner: <username>
-        group: <username>
+        owner: cyote
+        group: cyote
         backrefs: yes
+
+    - lineinfile:
+        path: /etc/sysctl.conf            
+#        regexp: '^fs.file-max='
+        insertafter: '#fs.protected_symlinks=0'
+        line: 'fs.file-max = 100000'
+        backup: yes
+        owner: root
+        group: root
+#        backrefs: yes
+
     - lineinfile:
         path: /etc/sysctl.conf
-        state: present        
-        regexp: '^fs.file-max='
-        line: 'fs.file-max = 65536'
+        insertafter: 'fs.file-max = 100000'
+        line: 'fs.inotify.max_user_watches = 524288'
         backup: yes
         owner: root
         group: root
         backrefs: yes
+
     - lineinfile:
         path: /etc/systemd/system.conf        
         regexp: '^#DefaultLimitNOFILE='
@@ -54,6 +67,7 @@
         owner: root
         group: root
         backrefs: yes
+
     - lineinfile:
         path: /etc/systemd/system.conf
         regexp: '^#DefaultLimitNPROC='
@@ -62,6 +76,7 @@
         owner: root
         group: root
         backrefs: yes
+
     - lineinfile:
         path: /etc/systemd/system.conf
         regexp: '^#DefaultLimitMEMLOCK='
@@ -71,9 +86,9 @@
         group: root     
         backrefs: yes
 
-    - name: configure system settings, file descriptors and number of threads to <USERNAME>    
+    - name: configure system settings, file descriptors and number of threads to CYOTE    
       pam_limits:  
-       domain: <username>
+       domain: cyote
        limit_type: "{{item.limit_type}}"
        limit_item: "{{item.limit_item}}"
        value: "{{item.value}}"
@@ -99,9 +114,14 @@
         - { limit_type: 'soft', limit_item: 'memlock', value: unlimited }
         - { limit_type: 'hard', limit_item: 'memlock', value: unlimited }
   
-    - name: reload settings from all system configuration files
+#    - name: reload settings from all system configuration files
 #      shell: systemctl daemon-reload
-      shell: shutdown -r +5
+#      shell: shutdown -r +5
 
+#   -  name: broadcast restart message
+#      command: echo "Your machine will restart in 5 minutes. To cancel this please hit Ctrl+C"
 
-
+# Reboot module needs to be on Ansible 2.7 or newer to work.
+    - name: Rebooting after configuration changes
+      reboot:
+       msg: "Reboot initiated by Ansible"

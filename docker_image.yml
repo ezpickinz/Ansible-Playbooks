@@ -1,0 +1,9 @@
+#Ansible Variable Playbook for Creating Containers
+
+image:
+name:
+src_port:
+dest_port:
+src_vol:
+dest_vol:  
+privileged: true

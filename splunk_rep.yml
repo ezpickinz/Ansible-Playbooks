@@ -1,0 +1,74 @@
+- hosts: splunk_searchhead
+  user: cyote
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+
+    - name: Replicating password for "aguiat" to SPLUNK
+      lineinfile:
+        path: /opt/splunk/etc/passwd
+        regexp: '^:aguiat:'
+        insertafter: ':aguiat:'
+        line: ':aguiat:$6$wixw/kk2$ivstO5V/b7AsXh6QVuEB80tGW6v8oXpFE2ZPxdjwst1LZEMWpc9Xl3kZi4bgEz3X/7bEDIv1DWk.OuQ1Pyf6I.::Andrew Aguire:admin:andrew.aguire@inl.gov:::18169'
+        state: present
+        backrefs: yes
+        owner: root
+        group: root
+
+    - name: Replicating passsword for "jordwm" to SPLUNK
+      lineinfile:
+        path: /opt/splunk/etc/passwd
+        regexp: '^:jordwm:'
+        insertafter: ':jordwm:'
+        line: ':jordwm:$6$jrlZdE9A$7VywwAoE.10yGyuOr/6SjIoywZgfd7dJ0nYtbPKMXEETGs5WPHHXS76Gl8PCgTFCEcXoscXx7y2S8PDkWMgen1::Willis Jordan:admin:willis.jordan@inl.gov:::18170'
+        state: present
+        backrefs: yes
+        owner: root
+        group: root
+
+    - name: Replicating passsword for "chatrr" to SPLUNK
+      lineinfile:
+        path: /opt/splunk/etc/passwd
+        regexp: '^:chatrr:'
+        insertafter: ':chatrr:'
+        line: ':chatrr:$6$iu8ksnpR$SmHNUblFqSUz2eZNoVFGpinLe1dxCwuPLkXZf667WNmGeE7y3Sq9QN/0Ca4LuDHEr66CArfUl3gsglaKch8ST0::Rishi Chatterjee:admin:rishi.chatterjee@inl.gov:::18171'
+        state: present
+        backrefs: yes
+        owner: root
+        group: root
+
+    - name: Replicating passsword for "welllr" to SPLUNK
+      lineinfile:
+        path: /opt/splunk/etc/passwd
+        regexp: '^:welllr:'
+        insertafter: ':welllr:'
+        line: ':welllr:$6$SpTcKQbX$AkhmU5JFwgP2LTG4odmwETq6BDvXsM.j0TK11dgxXpm/vjiY5I6jV.lZz8cY7y0eofIVHk9GwI7duOa9vKMgo.::Lawrence Wellman:admin:lawrence.wellman@inl.gov:::18172'
+        state: present
+        backrefs: yes
+        owner: root
+        group: root
+
+    - name: Replicating passsword for "spriee" to Splunk
+      lineinfile:
+        path: /opt/splunk/etc/passwd
+        regexp: '^:spriee:'
+        insertafter: ':spriee:'
+        line: ':spriee:$6$GKIW7H.A$evuMIOOK.jJp8W5s5snv0km0HRD/y4pg8ly7KsRAQcGAGXzZbPx/XfQD7mvJTcSomr0.uPrEcw4jRnoHQ7Pvm.::Edward Springer:admin:edward.springer@inl.gov:::18173'
+        state: present
+        backrefs: yes
+        owner: root
+        group: root
+
+    - name: Replicating password for "cyote to SPLUNK
+      lineinfile:
+        path: /opt/splunk/etc/passwd
+        regexp: '^:cyote:'
+        insertafter: ':cyote:'
+        line: ':cyote:$6$Hb.cJoTS5KfqqSMR$lnBlBXYvjWFAlHG2/C8RjFuiEePWsMw2aLDhoQS6bpl/lMfWkwgvsNLMRkqiXsVN81hKSHZAdQUycaKYUepGD.::Administrator:admin:cyote@inl.gov:::18142'
+        state: present
+        backrefs: yes
+        owner: root
+        group: root
+

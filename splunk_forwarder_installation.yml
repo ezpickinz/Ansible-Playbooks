@@ -1,0 +1,64 @@
+#Ansible Playbook
+#Splunk Forwarder Installation
+
+#Command to execute: ansible-playbook -v -i /etc/ansible/hosts/ /etc/ansible/playbooks/splunk_forwarder_installation.yml 
+
+- hosts: splunk_forwarder
+  user: cyote
+  become: yes
+  become_user: root
+  gather_facts: yes
+  tasks:
+    
+    - include_tasks: APT_plybk.yml
+    - include_tasks: modify_ulimit.yml
+    - include_tasks: NTP.yml
+
+    - name: Installing Splunk UF
+#      hosts: splunk_forwarder
+#      remote_user: cyote
+#      become: yes
+#      become_user: root
+      vars:
+        splunk_working_directory: '/home/cyote/Splunk'
+        splunk_user: 'cyote'
+        splunk_password: '$6$xL0H5Oty$XhW1S/v813OgpuZUFWjszt6BqVdn.8G3HM0E0D/u68Z9aCzHaBJ9loRxOpdlmcuGVlTTxooluGSApDqQrrP9A/'
+        splunk_uf_binary_linux: 'splunkforwarder-8.0.0-1357bef0a7f6-linux-2.6-amd64.deb'
+      roles: 
+        - universal_forwarder_linux
+
+    - name: Checking if Splunk is installed
+      tags: install
+      stat: path=/opt/splunkforwarder/
+      register: splunk_path
+
+    - name: Checking if Installer already copied over
+      tags: install
+      stat: path={{splunk_working_directory}}{{splunk_uf_binary_linux}}
+      when: splunk_path.stat.exists == false
+      register: splunk_installer
+
+    - name: Splunk is installed
+      tags: install
+      debug: msg='Splunk is already installed under /opt/splunkforwarder/'
+      when: splunk_path.stat.exists == true
+
+    - name: Install DPKG
+      tags: install
+      command: dpkg -i {{splunbk_working_directory}}{{splunk_uf_binary_linux}}
+      when: splunk_path.stat.exists == false
+
+    - name: CHOWN Directory
+      tags: install
+      shell: chown -R splunk:splunk /opt/splunkforwarder/
+      when: splunk_path.stat.exists == false
+
+    - name: Start Splunk
+      tags: install
+      shell: /opt/splunkforwarder/bin/splunk start --accept-license
+      when: splunk_path.stat.exists == false 
+
+    - name: Enable boot-start
+      tags: install
+      shell: /opt/splunkforwarder/bin/splunk enable boot-start -user cyote
+      when: splunk_path.stat.exist == false

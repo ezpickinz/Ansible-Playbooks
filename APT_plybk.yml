@@ -1,10 +1,10 @@
 #Ansible Playbook
 #APT Installation
 
-#command to execute: ansible-playbook -v -i /etc/ansible/hosts APT_plybk.yml --ask-become-pass
+#command to exeute: ansible-playbook -v -i /etc/ansible/hosts/ APT_plybk.yml --ask-become-pass
 
-- hosts: all
-  user: <username>
+- hosts: workstations
+  user: aguiat
   become: yes
   become_user: root
   become_method: sudo
@@ -12,9 +12,9 @@
   tasks:
 
     - name: add repo
-      apt_repository: repo='deb [arch=amd64] ftp://<REPO SERVER>/ubuntu bionic main restricted universe multiverse'
-      apt_repository: repo='deb [arch=amd64] ftp://<REPO SERVER>/ubuntu bionic-security main restricted universe multiverse'
-      apt_repository: repo='deb [arch=amd64] ftp://<REPO SERVER>/ubuntu bionic-updates main restricted universe multiverse'
+      apt_repository: repo='deb [arch=amd64] http://repo.cyote.inl.gov/ubuntu bionic main restricted universe multiverse'
+      apt_repository: repo='deb [arch=amd64] http://repo.cyote.inl.gov/ubuntu bionic-security main restricted universe multiverse'
+      apt_repository: repo='deb [arch=amd64] http://repo.cyote.inl.gov/ubuntu bionic-updates main restricted universe multiverse'
 
     - name: install packages
       apt:
@@ -31,8 +31,26 @@
         - 'python-pip'
         - 'python3-pip'
         - 'nginx'
+        - 'aptitude'
+        - 'cmake'
+        - 'make'
+        - 'gcc'
+        - 'g++'
+        - 'flex'
+        - 'bison'
+        - 'libpcap-dev'
+        - 'libssl-dev'
+        - 'python-dev'
+        - 'swig'
+        - 'zlib1g-dev'
+        - 'swig3.0'
+        - 'dislocker'
+        - 'docker'
+        - 'docker.io'
+        - 'python-docker'
+        - 'net-tools'
 
-    - name: run apt-get update and upgrade apt-packages
+    - name: run apt-get update and upgrade
       apt: 
        state: latest
        upgrade: yes

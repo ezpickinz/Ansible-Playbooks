@@ -1,10 +1,10 @@
 #Ansible Playbook
-#
+#Update all APT packages
 
 #command to execute: ansible-playbook -v -i /etc/ansible/hosts update.yml --ask-become-pass
 
     - hosts: workstations
-      user: <username>
+      user: cyote
       become: yes
       become_user: root
       become_method: sudo

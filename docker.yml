@@ -1,0 +1,46 @@
+#Ansible Playbook
+#Building a Container
+
+#Command to execute: ansible-playbook -v -i /etc/ansible/host /etc/ansible/playbooks/Container_build.yml --ask-become-pass
+
+- hosts: container_vms
+  remote_user: cyote
+  tasks:
+  - name: Include Variables
+    include_vars: vars.yml
+
+  - name: Install Python-Docker
+    apt:
+     name: python-docker
+     state: present
+     update_cache: yes
+
+  - name: Pull Image
+    docker_image:
+      name: Ubuntu 18.04
+
+  - name: Build Image
+    docker_image:
+      path: /root/docker
+      name: webimage
+
+  - name: Create Container
+    docker_container:
+     name: "{{ name }}"
+     image: "{{ image }}"
+     state: started
+     ports: 
+      - "{{ src_port }}:{{ dest_port }}"
+     volumes:
+      - "{{ src_vol }}:{{ dest_vol }}"
+     privileged: "{{ privileged }}"
+     tty: true
+     detach: true
+  - name
+ 
+  - name: Validate Docker Container
+    uri:
+      url: http://dockerhost:8080
+      return_content: Yes
+    register: this
+    failed_when: "''"
