@@ -5,7 +5,7 @@
         
 #Gravwell Indexers
     - hosts: gravwell_indexers
-      user: gravuser
+      user: <uname> #gravwell username who has root access#
       become: yes
       become_method: sudo
       become_user: root
