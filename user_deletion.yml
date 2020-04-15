@@ -4,7 +4,7 @@
 #command to execute: ansible-playbook -v -i /etc/ansible/hosts /etc/ansible/playbooks/user_deletion.yml --ask-become-pass
 
 - hosts: workstations
-  user: aguiat
+  user: root #or user who has root access#
   become: yes
   become_method: sudo
   become_user: root
@@ -22,57 +22,13 @@
 #           remove: yes
 #           force: yes
 
-#        - name: Removing user "Andrew Aguire"
-#          remote_user: <adminuser>
-#          become: yes
-#          become_method: sudo
-#          become_user: root
-#          user:
-#            name: aguiat
-#            state: absent
-#            remove: yes
-#            force: yes
-
-#        - name: Removing user "Willis Jordan"
-#          remote_user: aguiat
-#          become: yes
-#          become_method: sudo
-#          become_user: root
-#          user:
-#            name: jordwm
-#            state: absent
-#            remove: yes
-#            force: yes
-        
-        - name: Removing user "Rishi Chatterjee"
-          remote_user: aguiat
+       - name: Removing user "John Min"
+          remote_user: <adminuser>
           become: yes
           become_method: sudo
           become_user: root
           user:
-            name: chattr
+            name: minjs
             state: absent
             remove: yes
             force: yes
-
-#        - name: Removing user "Lawrence Wellman"
-#          remote_user: aguiat
-#          become: yes
-#          become_method: sudo
-#          become_user: root
-#          user:
-#            name: welllr
-#            state: absent
-#            remove: yes
-#            force: yes
- 
-#        - name: Removing user "Edward Springer"
-#          remote_user: aguiat
-#          become: yes
-#          become_method: sudo
-#          become_user: root
-#          user:
-#            name: spriee
-#            state: absent
-#            remove: yes
-#            force: yes
