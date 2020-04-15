@@ -4,7 +4,7 @@
 #command to execute: ansible-playbook -v -i /etc/ansible/hosts /etc/ansible/playbooks/Add_pip.yml --ask-become-pass
 
 - hosts: workstations
-  user: aguiat
+  user: <uname> #user who has root access#
   become: yes
   become_user: root
   become_method: sudo
@@ -16,43 +16,31 @@
         path: "/home/{{ item }}/.config/pip/"
         state: directory
         owner: "{{ item }}"
-        group: CYOTE
+        group: TEST
       with_items:
-        - aguiat
-        - spriee
-        - welllr
-        - chatrr
-        - jordwm
-        - cyote
-
+        - minjs
+        - TEST
+   
     - name: Delete existing PIP.conf  
       file:
         path: "/home/{{ item }}/.config/pip/pip.conf"
         state: absent
         owner: "{{ item }}"
-        group: CYOTE
+        group: TEST
       with_items:
-        - aguiat
-        - welllr
-        - spriee
-        - chatrr
-        - jordwm
-        - cyote
+        - minjs
+        - TEST
 
     - name: Create new PIP conf
       file:
         path: "/home/{{ item }}/.config/pip/pip.conf"
         state: touch
         owner: "{{ item }}"
-        group: CYOTE
+        group: TEST
         mode: 0600
       with_items:
-        - aguiat
-        - welllr
-        - spriee
-        - chatrr
-        - jordwm
-        - cyote
+        - minjs
+        - TEST
 
     - lineinfile:
         path: "/home/{{ item }}/.config/pip/pip.conf"
@@ -60,60 +48,44 @@
         line: '[global]'
         backup: yes
         owner: "{{ item }}"
-        group: CYOTE
+        group: TEST
       with_items:
-        - aguiat
-        - spriee
-        - chatrr
-        - jordwm
-        - welllr
-        - cyote
-
+        - minjs
+        - TEST
+       
     - lineinfile:
         path: "/home/{{ item }}/.config/pip/pip.conf"
         state: present
         insertafter: '[global]'
-        line: 'index-url = http://repo.cyote.inl.gov/bandersnatch/mirror/web/simple'
+        line: 'index-url = http://<repo server>/bandersnatch/mirror/web/simple'
         backup: yes 
         owner: "{{ item }}"
-        group: CYOTE
+        group: TEST
       with_items:
-        - aguiat
-        - welllr
-        - spriee
-        - jordwm
-        - chatrr
-        - cyote
-
+        - minjs
+        - TEST
+        
     - lineinfile:
         path: "/home/{{ item }}/.config/pip/pip.conf"
         state: present
-        insertafter: 'index-url = http://repo.cyote.inl.gov/bandersnatch/mirror/simple'
+        insertafter: 'index-url = http://<repo server>/bandersnatch/mirror/simple'
         line: '[install]'
         backup: yes  
         owner: "{{ item }}"
-        group: CYOTE
+        group: TEST
       with_items:
-        - aguiat
-        - welllr
-        - spriee
-        - chatrr
-        - jordwm
-        - cyote
-
+        - minjs
+        - TEST
+ 
     - lineinfile:
         path: "/home/{{ item }}/.config/pip/pip.conf"
         state: present
         insertafter: '[install]'
-        line: 'trusted-host = repo.cyote.inl.gov'
+        line: 'trusted-host = <repo server>'
         backup: yes
         owner: "{{ item }}"
-        group: CYOTE
+        group: TEST
       with_items:
-        - aguiat
-        - welllr
-        - spriee
-        - chatrr
-        - jordwm
-        - cyote
-
+        - minjs
+        - TEST
+       
