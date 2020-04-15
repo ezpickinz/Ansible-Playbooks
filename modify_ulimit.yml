@@ -5,7 +5,7 @@
 #command to exeute: ansible-playbook -v -i /etc/ansible/hosts/ modify_ulimit.yml --ask-become-pass
 
 - hosts: workstations
-  user: cyote
+  user: <uname> #user who has root access#
   become: yes
   become_user: root
   become_method: sudo
@@ -86,9 +86,9 @@
         group: root     
         backrefs: yes
 
-    - name: configure system settings, file descriptors and number of threads to CYOTE    
+    - name: configure system settings, file descriptors and number of threads to TEST   
       pam_limits:  
-       domain: cyote
+       domain: TEST
        limit_type: "{{item.limit_type}}"
        limit_item: "{{item.limit_item}}"
        value: "{{item.value}}"
