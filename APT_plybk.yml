@@ -12,9 +12,9 @@
   tasks:
 
     - name: add repo
-      apt_repository: repo='deb [arch=amd64] http://repo.cyote.inl.gov/ubuntu bionic main restricted universe multiverse'
-      apt_repository: repo='deb [arch=amd64] http://repo.cyote.inl.gov/ubuntu bionic-security main restricted universe multiverse'
-      apt_repository: repo='deb [arch=amd64] http://repo.cyote.inl.gov/ubuntu bionic-updates main restricted universe multiverse'
+      apt_repository: repo='deb [arch=amd64] http://<repo addr>/ubuntu bionic main restricted universe multiverse'
+      apt_repository: repo='deb [arch=amd64] http://<repo addr>/ubuntu bionic-security main restricted universe multiverse'
+      apt_repository: repo='deb [arch=amd64] http://<repo addr>/ubuntu bionic-updates main restricted universe multiverse'
 
     - name: install packages
       apt:
