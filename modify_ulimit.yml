@@ -17,8 +17,8 @@
         regexp: '^#DefaultLimitNOFILE='
         line: 'DefaultLimitNOFILE=65536'
         backup: yes
-        owner: cyote
-        group: cyote   
+        owner: 
+        group:    
         backrefs: yes
 
     - lineinfile:
@@ -27,8 +27,8 @@
         regexp: '^#DefaultLimitNPROC='
         line: 'DefaultLimitNPROC=65536'
         backup: yes
-        owner: cyote
-        group: cyote
+        owner: 
+        group: 
         backrefs: yes
 
     - lineinfile:
@@ -36,8 +36,8 @@
         regexp: '^#DefaultLimitMEMLOCK='
         line: 'DefaultLimitMEMLOCK=unlimited'
         backup: yes
-        owner: cyote
-        group: cyote
+        owner: 
+        group: 
         backrefs: yes
 
     - lineinfile:
