@@ -5,95 +5,31 @@
 #Command to execute: anisble-playbook -v -i /etc/ansible/hosts /etc/ansible/playbooks/pw_rep.yml --ask-become-pass 
 
 - hosts: workstations
-  user: aguiat
+  user: root #or user who has root access#
   become: yes
   become_user: root
   become_method: sudo
   gather_facts: yes
   tasks:
 
-    - name: Adding new password for "aguiat" to SHADOW
+    - name: Adding new password for "TEST" to SHADOW
       lineinfile:      
         path: /etc/shadow
-        regexp: '^aguiat:'
-        insertafter: 'aguiat:'
-        line: 'aguiat:$6$wixw/kk2$ivstO5V/b7AsXh6QVuEB80tGW6v8oXpFE2ZPxdjwst1LZEMWpc9Xl3kZi4bgEz3X/7bEDIv1DWk.OuQ1Pyf6I.:18163:7:90:14:30::'
+        regexp: '^TEST:'
+        insertafter: 'TEST:'
+        line: 'aguiat:<pw hash>:18163:7:90:14:30::'
         state: present
         backrefs: yes
         owner: root
         group: root
-   
-    - name: Adding new password for "jordwm" to SHADOW
-      lineinfile:      
-        path: /etc/shadow
-        regexp: '^jordwm:'
-        insertafter: 'jordwm:'
-        line: 'jordwm:$6$jrlZdE9A$7VywwAoE.10yGyuOr/6SjIoywZgfd7dJ0nYtbPKMXEETGs5WPHHXS76Gl8PCgTFCEcXoscXx7y2S8PDkWMgen1:18135:7:90:14:30::'
-        state: present
-        backrefs: yes
-        owner: root
-        group: root
-
-    - name: Adding new password for "chatrr" to SHADOW
-      lineinfile:      
-        path: /etc/shadow
-        regexp: '^chatrr:'
-        insertafter: 'chatrr:'
-        line: 'chatrr:$6$iu8ksnpR$SmHNUblFqSUz2eZNoVFGpinLe1dxCwuPLkXZf667WNmGeE7y3Sq9QN/0Ca4LuDHEr66CArfUl3gsglaKch8ST0:18164:7:90:14:30::'
-        state: present
-        backrefs: yes
-        owner: root
-        group: root
-
-    - name: Adding new password for "welllr" to SHADOW
-      lineinfile:      
-        path: /etc/shadow
-        regexp: '^welllr:'
-        insertafter: 'welllr:'
-        line: 'welllr:$6$SpTcKQbX$AkhmU5JFwgP2LTG4odmwETq6BDvXsM.j0TK11dgxXpm/vjiY5I6jV.lZz8cY7y0eofIVHk9GwI7duOa9vKMgo.:18162:7:90:14:30::'
-        state: present
-        backrefs: yes
-        owner: root
-        group: root
-
-    - name: Adding new password for "spriee" to SHADOW
-      lineinfile:      
-        path: /etc/shadow
-        regexp: '^spriee:'
-        insertafter: 'spriee:'
-        line: 'spriee:$6$GKIW7H.A$evuMIOOK.jJp8W5s5snv0km0HRD/y4pg8ly7KsRAQcGAGXzZbPx/XfQD7mvJTcSomr0.uPrEcw4jRnoHQ7Pvm.:18185:7:90:14:30::'
-        state: present
-        backrefs: yes
-        owner: root
-        group: root
-
-    - name: Adding new password for "cyote" to SHADOW
+        
+    - name: Adding new password for "minjs" to SHADOW
       lineinfile:
         path: /etc/shadow
-        regexp: '^cyote:'
-        insertafter: 'cyote:'
-        line: 'cyote:$6$xL0H5Oty$XhW1S/v813OgpuZUFWjszt6BqVdn.8G3HM0E0D/u68Z9aCzHaBJ9loRxOpdlmcuGVlTTxooluGSApDqQrrP9A/:18184:0:99999:7:::'
+        regexp: '^minjs:'
+        insertafter: 'minjs:'
+        line: 'minjs:<pw hash>:18184:0:99999:7:::'
         state: present
         backrefs: yes
         owner: root
         group: root
-
-#- hosts: gravwell_frontend
-#  user: gravuser
-#  become: yes
-#  become_user: root
-#  become_method: sudo
-#  gather_facts: yes
-#  tasks:
-
-#    - name: Replicating /etc/shadow for "username" password to Gravwell
-#      lineinfile:
-#	path:
-#	regexp: '^'
-#	insertafter: ''
-#	line: ''	
-#	state: present
-#	backerfs: yes
-#	owner: root
-#	group: root
-
