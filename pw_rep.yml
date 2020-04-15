@@ -17,7 +17,7 @@
         path: /etc/shadow
         regexp: '^TEST:'
         insertafter: 'TEST:'
-        line: 'aguiat:<pw hash>:18163:7:90:14:30::'
+        line: 'TEST:<pw hash>:18163:7:90:14:30::'
         state: present
         backrefs: yes
         owner: root
