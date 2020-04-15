@@ -4,7 +4,7 @@
 #command to exeute: ansible-playbook -v -i /etc/ansible/hosts/ APT_plybk.yml --ask-become-pass
 
 - hosts: workstations
-  user: aguiat
+  user: <uname> #user who has root access#
   become: yes
   become_user: root
   become_method: sudo
