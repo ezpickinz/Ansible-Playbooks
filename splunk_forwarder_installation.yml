@@ -4,7 +4,7 @@
 #Command to execute: ansible-playbook -v -i /etc/ansible/hosts/ /etc/ansible/playbooks/splunk_forwarder_installation.yml 
 
 - hosts: splunk_forwarder
-  user: cyote
+  user: root #or user who has root access#
   become: yes
   become_user: root
   gather_facts: yes
@@ -16,13 +16,13 @@
 
     - name: Installing Splunk UF
 #      hosts: splunk_forwarder
-#      remote_user: cyote
+#      remote_user: root #or user who has root access#
 #      become: yes
 #      become_user: root
       vars:
-        splunk_working_directory: '/home/cyote/Splunk'
-        splunk_user: 'cyote'
-        splunk_password: '$6$xL0H5Oty$XhW1S/v813OgpuZUFWjszt6BqVdn.8G3HM0E0D/u68Z9aCzHaBJ9loRxOpdlmcuGVlTTxooluGSApDqQrrP9A/'
+        splunk_working_directory: '/home/TEST/Splunk'
+        splunk_user: 'TEST'
+        splunk_password: '<pw hash>'
         splunk_uf_binary_linux: 'splunkforwarder-8.0.0-1357bef0a7f6-linux-2.6-amd64.deb'
       roles: 
         - universal_forwarder_linux
