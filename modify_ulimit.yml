@@ -1,6 +1,6 @@
 
 #Ansible Playbook
-#Modify Ulimits
+#Modify Ulimits this is a necessary step in order to install Splunk
 
 #command to exeute: ansible-playbook -v -i /etc/ansible/hosts/ modify_ulimit.yml --ask-become-pass
 
