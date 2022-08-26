@@ -3,7 +3,7 @@
 
 #command to exeute: ansible-playbook -v -i /etc/ansible/hosts/ APT_plybk.yml --ask-become-pass
 
-- hosts: workstations
+- hosts: localhost #sets to run on the local host you can input a server group within the host file to hit multiple nodes
   user: <uname> #user who has root access#
   become: yes
   become_user: root
