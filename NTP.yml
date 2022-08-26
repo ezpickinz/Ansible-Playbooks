@@ -1,5 +1,5 @@
 #Ansible Playbook
-#NTP
+#Configures and set NTP to a local or public NTP server
 
 #command to exeute: ansible-playbook -v -i /etc/ansible/hosts/ NTP.yml --ask-become-pass
 
