@@ -1,2 +1,2 @@
 # Ansible-Playbooks
-Ansible Playbooks to Linux push configurations.
+Ansible Playbooks to Linux push configurations for Linux administration tasks and pre-requisites for Splunk installation on Linux box.
