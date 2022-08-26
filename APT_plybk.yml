@@ -50,7 +50,7 @@
         - 'python-docker'
         - 'net-tools'
 
-    - name: run apt-get update and upgrade
+    - name: run apt-get update and upgrade #replace with yum if on RHEL
       apt: 
        state: latest
        upgrade: yes
