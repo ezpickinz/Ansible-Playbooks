@@ -20,25 +20,25 @@
              gid: 2010
              state: present
 
-#        - name: Adding user "TEST" to TEST group         
-#          user:
-#            name: TEST
-#            password: '$6$58wtQJB3a$N8AG9hCnaxlJYSL1draFV18ybepFOync83uGAR64YdKHZY31l0Eg6ze1mCVUPJvafqRinaAViltfYRU/5ph5g1'
-#            comment: "TEST"
-#            uid: 2001
-#            groups:
-#             - sudo
-#             - TEST
-#            state: present
-#            append: yes
-#            shell: /bin/bash
-#            generate_ssh_key: yes
-#            ssh_key_bits: 2048
-#            ssh_key_file: .ssh/id_rsa
-#            system: no
-#            createhome: yes           
-#            home: /home/TEST 
-#            update_password: on_create
+        - name: Adding user "TEST" to TEST group         
+          user:
+            name: TEST
+            password: '$6$58wtQJB3a$N8AG9hCnaxlJYSL1draFV18ybepFOync83uGAR64YdKHZY31l0Eg6ze1mCVUPJvafqRinaAViltfYRU/5ph5g1'
+            comment: "TEST"
+            uid: 2001
+            groups:
+             - sudo
+             - TEST
+            state: present
+            append: yes
+            shell: /bin/bash
+            generate_ssh_key: yes
+            ssh_key_bits: 2048
+            ssh_key_file: .ssh/id_rsa
+            system: no
+            createhome: yes           
+            home: /home/TEST 
+            update_password: on_create
           
 #        ALL USERNAME are first four of the lastname, first intial, middle intial
 #        - name: Adding user "<NAME>" to TEST group
@@ -114,8 +114,10 @@
           command:
            chage -M 90 -m 7 -I 30 -W 14 minjs
 
+## UNDER CONSTRUCTION ##
+
 #    - hosts: workstations
-#      user: cyote
+#      user: <uname>
 #      become: yes
 #      become_method: sudo
 #      become_user: root
