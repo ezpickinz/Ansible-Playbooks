@@ -11,7 +11,7 @@
         path: /opt/splunk/etc/passwd
         regexp: '^:minjs:'
         insertafter: ':minjs:'
-        line: ':minjs:<pw hash>::Andrew Aguire:admin:andrew.aguire@inl.gov:::18169'
+        line: ':minjs:<pw hash>::Administrator:admin:admin@example.com:::18169'
         state: present
         backrefs: yes
         owner: root
@@ -22,7 +22,7 @@
         path: /opt/splunk/etc/passwd
         regexp: '^:TEST:'
         insertafter: ':TEST:'
-        line: ':TEST:<pw hash>::Administrator:admin:cyote@inl.gov:::18142'
+        line: ':TEST:<pw hash>::Administrator:admin:admin@example.com:::18142'
         state: present
         backrefs: yes
         owner: root
