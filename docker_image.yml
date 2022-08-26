@@ -1,4 +1,6 @@
 #Ansible Variable Playbook for Creating Containers
+#Playbook under construction... below is a list of the syntax that is going to be involved...
+
 
 image:
 name:
