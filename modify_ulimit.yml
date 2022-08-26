@@ -114,14 +114,21 @@
         - { limit_type: 'soft', limit_item: 'memlock', value: unlimited }
         - { limit_type: 'hard', limit_item: 'memlock', value: unlimited }
   
-#    - name: reload settings from all system configuration files
-#      shell: systemctl daemon-reload
-#      shell: shutdown -r +5
-
-#   -  name: broadcast restart message
-#      command: echo "Your machine will restart in 5 minutes. To cancel this please hit Ctrl+C"
-
-# Reboot module needs to be on Ansible 2.7 or newer to work.
+    - name: install sysfsutils for disabling transparent huge pages
+      package:
+        name: sysfsutils
+        state: latest
+    
+    - name: disable transparent huge pages for redis performance - persistent change
+      lineinfile:
+        path: /etc/sysfs.conf
+        create: true
+        regexp: '^kernel\/mm\/transparent\_hugepage\/enabled'
+        line: "kernel/mm/transparent_hugepage/enabled = never"
+    
+    - name: disable transparent huge pages for redis performance - live change
+      shell: echo never {{ ">" }} /sys/kernel/mm/transparent_hugepage/enabled
+    
     - name: Rebooting after configuration changes
       reboot:
        msg: "Reboot initiated by Ansible"
