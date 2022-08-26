@@ -1,5 +1,5 @@
 #Ansible Playbook
-#Update all APT packages
+#Update all APT packages... replace this with YUM module if you are on RHEL
 
 #command to execute: ansible-playbook -v -i /etc/ansible/hosts update.yml --ask-become-pass
 
